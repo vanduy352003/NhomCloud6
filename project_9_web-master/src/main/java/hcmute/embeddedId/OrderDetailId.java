@@ -23,8 +23,8 @@ public class OrderDetailId implements Serializable {
 	@Column(name = "id_order")
 	private int idOrder;
 	
-	@Column(name = "id_milk_tea")
-	private int idMilkTea;
+	@Column(name = "id_vegetable")
+	private int idVegetable;
 	
 	@Column(name = "size", columnDefinition = "nvarchar(50)")
 	private String size;
@@ -37,12 +37,12 @@ public class OrderDetailId implements Serializable {
 		this.idOrder = idOrder;
 	}
 
-	public int getIdMilkTea() {
-		return idMilkTea;
+	public int getIdVegetable() {
+		return idVegetable;
 	}
 
-	public void setIdMilkTea(int idMilkTea) {
-		this.idMilkTea = idMilkTea;
+	public void setIdVegetable(int idVegetable) {
+		this.idVegetable = idVegetable;
 	}
 
 	public String getSize() {
@@ -55,7 +55,7 @@ public class OrderDetailId implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(idMilkTea, idOrder, size);
+		return Objects.hash(idVegetable, idOrder, size);
 	}
 
 	@Override
@@ -67,6 +67,6 @@ public class OrderDetailId implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		OrderDetailId other = (OrderDetailId) obj;
-		return idMilkTea == other.idMilkTea && idOrder == other.idOrder && Objects.equals(size, other.size);
+		return idVegetable == other.idVegetable && idOrder == other.idOrder && Objects.equals(size, other.size);
 	}
 }

@@ -42,8 +42,8 @@ public class BranchEntity implements Serializable{
 	@OneToMany(mappedBy = "branchByOrder")
 	private Set<OrderEntity> orders;
 	
-	@OneToMany(mappedBy = "branchByBranchMilkTea")
-	private Set<BranchMilkTea> branchMilkTeas;
+	@OneToMany(mappedBy = "branchByBranchVegetable")
+	private Set<BranchVegetable> branchVegetables;
 	public int getIdBranch() {
 		return idBranch;
 	}
@@ -64,12 +64,12 @@ public class BranchEntity implements Serializable{
 		this.orders = orders;
 	}
 
-	public Set<BranchMilkTea> getBranchMilkTeas() {
-		return branchMilkTeas;
+	public Set<BranchVegetable> getBranchVegetables() {
+		return branchVegetables;
 	}
 
-	public void setBranchMilkTeas(Set<BranchMilkTea> branchMilkTeas) {
-		this.branchMilkTeas = branchMilkTeas;
+	public void setBranchVegetables(Set<BranchVegetable> branchVegetables) {
+		this.branchVegetables = branchVegetables;
 	}
 
 	public void setIdBranch(int idBranch) {

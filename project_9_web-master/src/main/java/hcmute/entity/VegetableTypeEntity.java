@@ -12,8 +12,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "milk_tea_type")
-public class MilkTeaTypeEntity implements Serializable{
+@Table(name = "vegetable_type")
+public class VegetableTypeEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -26,8 +26,8 @@ public class MilkTeaTypeEntity implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name = "id_category")
-	private MilkTeaCategoryEntity milkTeaCategoryByMilkTeaType;
+	private VegetableCategoryEntity vegetableCategoryByVegetableType;
 	
-	@OneToMany(mappedBy = "milkTeaTypeByMilkTea")
-	private Set<MilkTeaEntity> milkTeas;
+	@OneToMany(mappedBy = "vegetableTypeByVegetable")
+	private Set<VegetableEntity> vegetables;
 }

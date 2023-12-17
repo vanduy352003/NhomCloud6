@@ -28,6 +28,6 @@ public class CartDetailEntity implements Serializable{
 	private CartEntity cartByCartDetail;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_milk_tea",insertable = false, updatable = false)
-	private MilkTeaEntity milkTeaByCartDetail;
+	@JoinColumn(name = "id_vegetable",insertable = false, updatable = false)
+	private VegetableEntity vegetableByCartDetail;
 }

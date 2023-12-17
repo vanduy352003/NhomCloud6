@@ -19,8 +19,8 @@ public class CartDetailId implements Serializable {
 	@Column(name = "id_cart")
 	private int idCart;
 	
-	@Column(name = "id_milk_tea")
-	private int idMilkTea;
+	@Column(name = "id_vegetable")
+	private int idVegetable;
 	
 	@Column(name = "size", columnDefinition = "nvarchar(50)")
 	private String size;

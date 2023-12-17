@@ -10,14 +10,14 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "milk_tea")
-public class MilkTeaEntity implements Serializable {
+@Table(name = "vegetable")
+public class VegetableEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_milk_tea")
-	private int idMilkTea;
+	@Column(name = "id_vegetable")
+	private int idVegetable;
 
 	@Column(name = "name", columnDefinition = "nvarchar(100)")
 	private String name;
@@ -33,14 +33,14 @@ public class MilkTeaEntity implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "id_type")
-	private MilkTeaTypeEntity milkTeaTypeByMilkTea;
+	private VegetableTypeEntity vegetableTypeByVegetable;
 
-	@OneToMany(mappedBy = "milkTeaByCartDetail")
+	@OneToMany(mappedBy = "vegetableByCartDetail")
 	private Set<CartDetailEntity> cartDetails;
 
-	@OneToMany(mappedBy = "milkTeaByOrderDetail")
+	@OneToMany(mappedBy = "vegetableByOrderDetail")
 	private Set<OrderDetailEntity> orderDetails;
 	
-	@OneToMany(mappedBy = "milkTeaByBranchMilkTea")
-	private Set<BranchMilkTea> branchMilkTeas;
+	@OneToMany(mappedBy = "vegetableByBranchVegetable")
+	private Set<BranchVegetable> branchVegetables;
 }

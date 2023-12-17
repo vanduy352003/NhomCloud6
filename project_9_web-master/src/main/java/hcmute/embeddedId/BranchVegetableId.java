@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
-public class BranchMilkTeaId implements Serializable {
+public class BranchVegetableId implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Column(name = "id_branch")
 	private int idBranch;
 	
-	@Column(name = "id_milk_tea")
-	private int idMilkTea;
+	@Column(name = "id_vegetable")
+	private int idVegetable;
 	
 	@Column(name = "size", columnDefinition = "nvarchar(50)")
 	private String size;

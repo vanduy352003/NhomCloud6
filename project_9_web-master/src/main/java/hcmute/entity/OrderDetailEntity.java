@@ -34,17 +34,17 @@ public class OrderDetailEntity implements Serializable {
 	private OrderEntity orderByOrderDetail;
 
 	@ManyToOne
-	@JoinColumn(name = "id_milk_tea", insertable = false, updatable = false)
-	private MilkTeaEntity milkTeaByOrderDetail;
+	@JoinColumn(name = "id_vegetable", insertable = false, updatable = false)
+	private VegetableEntity vegetableByOrderDetail;
 
 	public OrderDetailEntity(OrderDetailId idOrderDetail, int quantity, int currPrice, OrderEntity orderByOrderDetail,
-			MilkTeaEntity milkTeaByOrderDetail) {
+			VegetableEntity vegetableByOrderDetail) {
 		super();
 		this.idOrderDetail = idOrderDetail;
 		this.quantity = quantity;
 		this.currPrice = currPrice;
 		this.orderByOrderDetail = orderByOrderDetail;
-		this.milkTeaByOrderDetail = milkTeaByOrderDetail;
+		this.vegetableByOrderDetail = vegetableByOrderDetail;
 	}
 
 	public OrderDetailEntity() {
@@ -83,11 +83,11 @@ public class OrderDetailEntity implements Serializable {
 		this.orderByOrderDetail = orderByOrderDetail;
 	}
 
-	public MilkTeaEntity getMilkTeaByOrderDetail() {
-		return milkTeaByOrderDetail;
+	public VegetableEntity getVegetableByOrderDetail() {
+		return vegetableByOrderDetail;
 	}
 
-	public void setMilkTeaByOrderDetail(MilkTeaEntity milkTeaByOrderDetail) {
-		this.milkTeaByOrderDetail = milkTeaByOrderDetail;
+	public void setVegetableByOrderDetail(VegetableEntity vegetableByOrderDetail) {
+		this.vegetableByOrderDetail = vegetableByOrderDetail;
 	}
 }
