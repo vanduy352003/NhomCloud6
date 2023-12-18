@@ -4,14 +4,14 @@ import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import hcmute.entity.BranchMilkTea;
+import hcmute.entity.BranchVegetable;
 import hcmute.entity.CartDetailEntity;
 import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MilkTeaModel {
+public class VegetableModel {
 	private int idMilkTea;
 	private String name;
 	private int cost;
@@ -26,8 +26,8 @@ public class MilkTeaModel {
 	private int milkTeaTypeId;
 	private int branchId;
 
-	private MilkTeaTypeModel milkTeaTypeByMilkTea;
+	private VegetableTypeModel milkTeaTypeByMilkTea;
 	private Set<CartDetailEntity> cartDetails;;
-	private Set<BranchMilkTea> branchMilkTeas;
+	private Set<BranchVegetable> branchVegetables;
 	private Boolean isEdit = false;
 }

@@ -28,7 +28,7 @@ import hcmute.entity.BranchEntity;
 import hcmute.entity.CartDetailEntity;
 import hcmute.entity.CartEntity;
 import hcmute.entity.MilkTeaEntity;
-import hcmute.model.MilkTeaModel;
+import hcmute.model.VegetableModel;
 import hcmute.model.OrderProduct;
 import hcmute.model.OrderProduct.OrderItem;
 import hcmute.service.IBranchVegetableService;
@@ -70,17 +70,17 @@ public class CartController {
 		return cart.getIdCart();
 	}
 
-	private List<MilkTeaModel> getList() {
+	private List<VegetableModel> getList() {
 		int idUser = Integer.parseInt(cookieServiceImpl.getValue("USER_ID"));
 		int idCart = getCartId(idUser);
 		List<CartDetailId> milkTeas = cartDetailService.findMilkTeaByCartId(idCart);
-		List<MilkTeaModel> listmilkteas = new ArrayList<MilkTeaModel>();
+		List<VegetableModel> listmilkteas = new ArrayList<VegetableModel>();
 		for (CartDetailId result : milkTeas) {
 			Optional<MilkTeaEntity> milktea = milkTeaService.findByIdMilkTea(result.getIdMilkTea());
 			if (milktea.isPresent()) {
 				MilkTeaEntity entity = milktea.get();
 				String size = result.getSize();
-				MilkTeaModel milkTeaModel = new MilkTeaModel();
+				VegetableModel milkTeaModel = new VegetableModel();
 				BeanUtils.copyProperties(entity, milkTeaModel);
 				milkTeaModel.setSize(size);
 				listmilkteas.add(milkTeaModel);

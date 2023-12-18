@@ -1,7 +1,7 @@
 package hcmute.model;
 
 import hcmute.embeddedId.OrderDetailId;
-import hcmute.entity.MilkTeaEntity;
+import hcmute.entity.VegetableEntity;
 import hcmute.entity.OrderEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,5 +15,5 @@ public class OrderDetailModel{
 	private int currPrice;
 	private int size;
 	private OrderModel orderByOrderDetail;
-	private MilkTeaModel milkTeaByOrderDetail;
+	private VegetableModel vegetableByOrderDetail;
 }

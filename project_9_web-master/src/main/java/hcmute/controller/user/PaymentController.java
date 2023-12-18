@@ -35,7 +35,7 @@ import hcmute.entity.OrderDetailEntity;
 import hcmute.entity.OrderEntity;
 import hcmute.entity.PayMethodEntity;
 import hcmute.entity.UserEntity;
-import hcmute.model.MilkTeaModel;
+import hcmute.model.VegetableModel;
 import hcmute.model.OrderData;
 import hcmute.model.OrderModel;
 import hcmute.model.OrderProduct;
@@ -110,11 +110,11 @@ public class PaymentController {
 
 		try {
 			OrderProduct orderProduct = objectMapper.readValue(data, OrderProduct.class);
-			List<MilkTeaModel> listMilkTea = new ArrayList<MilkTeaModel>();
+			List<VegetableModel> listMilkTea = new ArrayList<VegetableModel>();
 			for (OrderItem item : orderProduct.getList()) {
 				Optional<MilkTeaEntity> entity = milkTeaService.findByIdMilkTea(Integer.parseInt(item.getIdMilkTea()));
 				if (entity.isPresent()) {
-					MilkTeaModel milkTeaModel = new MilkTeaModel();
+					VegetableModel milkTeaModel = new VegetableModel();
 					BeanUtils.copyProperties(entity.get(), milkTeaModel);
 					milkTeaModel.setSize(item.getSize());
 					milkTeaModel.setOrderQuantity(Integer.parseInt(item.getQuantity()));

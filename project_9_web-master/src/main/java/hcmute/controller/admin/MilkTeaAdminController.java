@@ -27,7 +27,7 @@ import hcmute.entity.BranchEntity;
 import hcmute.entity.MilkTeaEntity;
 import hcmute.entity.MilkTeaTypeEntity;
 import hcmute.model.BranchModel;
-import hcmute.model.MilkTeaModel;
+import hcmute.model.VegetableModel;
 import hcmute.service.IVegetableService;
 import hcmute.service.IVegetableTypeService;
 import hcmute.service.IStorageService;
@@ -53,14 +53,14 @@ public class MilkTeaAdminController {
 	}
 	@GetMapping("add")
 	public String add(ModelMap model) {
-		MilkTeaModel milkTea = new MilkTeaModel();
+		VegetableModel milkTea = new VegetableModel();
 		milkTea.setIsEdit(false);
 		model.addAttribute("milkTea", milkTea);
 		return "admin/customize/customize-milk-tea";
 	}
 
 	@PostMapping("saveOrUpdate")
-	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("milkTea") MilkTeaModel milkTea,
+	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("milkTea") VegetableModel milkTea,
 			BindingResult result,@RequestParam("imageFile") MultipartFile imageFile) {
 		
 		if (milkTea != null) {
@@ -103,7 +103,7 @@ public class MilkTeaAdminController {
 	@GetMapping("edit/{idBranch}")
 	public ModelAndView edit(ModelMap model, @PathVariable("idBranch") int idBranch) {
 		Optional<MilkTeaEntity> opt = milkTeaService.findById(idBranch);
-		MilkTeaModel milkTea = new MilkTeaModel();
+		VegetableModel milkTea = new VegetableModel();
 		if (opt.isPresent()) {
 			MilkTeaEntity entity = opt.get();
 			BeanUtils.copyProperties(entity, milkTea);

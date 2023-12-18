@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hcmute.entity.BranchEntity;
 import hcmute.entity.CartEntity;
 import hcmute.entity.MilkTeaEntity;
-import hcmute.model.MilkTeaModel;
+import hcmute.model.VegetableModel;
 import hcmute.model.OrderProduct;
 import hcmute.model.OrderProduct.OrderItem;
 import hcmute.service.IBranchVegetableService;
@@ -55,7 +55,7 @@ public class ProductsDetailController {
 	@GetMapping("/{id}")
 	public ModelAndView detail(ModelMap model, @PathVariable("id") int id, RedirectAttributes redirectAttributes) {
 		Optional<MilkTeaEntity> optMilkTea = milkTeaService.findByIdMilkTea(id);
-		MilkTeaModel milkTeaModel = new MilkTeaModel();
+		VegetableModel milkTeaModel = new VegetableModel();
 
 		if (optMilkTea.isPresent()) {
 			MilkTeaEntity entity = optMilkTea.get();
@@ -134,7 +134,7 @@ public class ProductsDetailController {
 						"Xin lỗi quý khách! Hiện tại sản phẩm này đã hết hàng trên toàn bộ chi nhánh!");
 				model.addAttribute("status", "fail");
 				Optional<MilkTeaEntity> optMilkTea = milkTeaService.findByIdMilkTea(idMilkTea);
-				MilkTeaModel milkTeaModel = new MilkTeaModel();
+				VegetableModel milkTeaModel = new VegetableModel();
 
 				if (optMilkTea.isPresent()) {
 					MilkTeaEntity entity = optMilkTea.get();

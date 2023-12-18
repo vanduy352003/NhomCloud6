@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import hcmute.entity.MilkTeaCategoryEntity;
 
-import hcmute.model.MilkTeaCategoryModel;
+import hcmute.model.VegetableCategoryModel;
 
 import hcmute.service.IVegetableCategoryService;
 
@@ -35,14 +35,14 @@ public class MilkTeaCategoryAdminController {
 
 	@GetMapping("add")
 	public String add(ModelMap model) {
-		MilkTeaCategoryModel category = new MilkTeaCategoryModel();
+		VegetableCategoryModel category = new VegetableCategoryModel();
 		category.setIsEdit(false);
 		model.addAttribute("category", category);
 		return "admin/customize/customize-milk-tea-category";
 	}
 
 	@PostMapping("saveOrUpdate")
-	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("category") MilkTeaCategoryModel category,
+	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("category") VegetableCategoryModel category,
 			BindingResult result) {
 		if (result.hasErrors()) {
 			return new ModelAndView("admin/customize/customize-milk-tea-category");
@@ -70,7 +70,7 @@ public class MilkTeaCategoryAdminController {
 	@GetMapping("edit/{idCategory}")
 	public ModelAndView edit(ModelMap model, @PathVariable("idCategory") int idCategory) {
 		Optional<MilkTeaCategoryEntity> opt = milkTeaCategoryService.findById(idCategory);
-		MilkTeaCategoryModel category = new MilkTeaCategoryModel();
+		VegetableCategoryModel category = new VegetableCategoryModel();
 		if (opt.isPresent()) {
 			MilkTeaCategoryEntity entity = opt.get();
 			BeanUtils.copyProperties(entity, category);

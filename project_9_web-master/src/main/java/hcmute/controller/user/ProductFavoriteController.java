@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import hcmute.embeddedId.CartDetailId;
 import hcmute.entity.MilkTeaEntity;
-import hcmute.model.MilkTeaModel;
+import hcmute.model.VegetableModel;
 import hcmute.service.ICartDetailService;
 import hcmute.service.IVegetableService;
 
@@ -28,14 +28,14 @@ public class ProductFavoriteController {
 	@Autowired
 	IVegetableService milkTeaService;
 
-	private List<MilkTeaModel> getLists() {
+	private List<VegetableModel> getLists() {
 		List<CartDetailId> milkTeas = cartDetailService.findMilkTeaByCartId(1);
-		List<MilkTeaModel> listmilkteas = new ArrayList<MilkTeaModel>();
+		List<VegetableModel> listmilkteas = new ArrayList<VegetableModel>();
 		for (CartDetailId result : milkTeas) {
 			Optional<MilkTeaEntity> milktea = milkTeaService.findByIdMilkTea(result.getIdMilkTea());
 			if (milktea.isPresent()) {
 				MilkTeaEntity entity = milktea.get();
-				MilkTeaModel milkTeaModel = new MilkTeaModel();
+				VegetableModel milkTeaModel = new VegetableModel();
 				BeanUtils.copyProperties(entity, milkTeaModel);
 				listmilkteas.add(milkTeaModel);
 			}

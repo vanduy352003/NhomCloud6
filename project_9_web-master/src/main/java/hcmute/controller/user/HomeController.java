@@ -24,7 +24,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import hcmute.entity.MilkTeaEntity;
 import hcmute.entity.UserEntity;
-import hcmute.model.MilkTeaModel;
+import hcmute.model.VegetableModel;
 import hcmute.service.ICartDetailService;
 import hcmute.service.IVegetableService;
 import hcmute.service.IStorageService;
@@ -69,7 +69,7 @@ public class HomeController {
     @GetMapping("home/{id}")
 	public ModelAndView detail(ModelMap model, @PathVariable("id") int id, RedirectAttributes redirectAttributes) {
 		Optional<MilkTeaEntity> optMilkTea = milkTeaService.findByIdMilkTea(id);
-		MilkTeaModel milkTeaModel = new MilkTeaModel();
+		VegetableModel milkTeaModel = new VegetableModel();
 
 		if (optMilkTea.isPresent()) {
 			MilkTeaEntity entity = optMilkTea.get();

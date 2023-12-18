@@ -15,7 +15,7 @@ import hcmute.embeddedId.BranchMilkTeaId;
 import hcmute.entity.BranchEntity;
 import hcmute.entity.BranchMilkTea;
 import hcmute.entity.MilkTeaEntity;
-import hcmute.model.BranchMilkTeaModel;
+import hcmute.model.BranchVegetableModel;
 
 import hcmute.service.IBranchVegetableService;
 import hcmute.service.IBranchService;
@@ -46,14 +46,14 @@ public class BranchMilkTeaAdminController {
 
 	@GetMapping("add")
 	public String add(ModelMap model) {
-		BranchMilkTeaModel branchMilkTea = new BranchMilkTeaModel();
+		BranchVegetableModel branchMilkTea = new BranchVegetableModel();
 		branchMilkTea.setIsEdit(false);
 		model.addAttribute("branchMilkTea", branchMilkTea);
 		return "admin/customize/customize-branch-milk-tea";
 	}
 
 	@PostMapping("saveOrUpdate")
-	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("branchMilkTea") BranchMilkTeaModel branchMilkTea,
+	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("branchMilkTea") BranchVegetableModel branchMilkTea,
 			BindingResult result) {
 		if (branchMilkTea != null) {
 			BranchMilkTea entity = new BranchMilkTea();
@@ -78,7 +78,7 @@ public class BranchMilkTeaAdminController {
 	public ModelAndView edit(ModelMap model, @PathVariable("idBranch") int idBranch,@PathVariable("idMilkTea") int idMilkTea,@PathVariable("size") String size) {
 		BranchMilkTeaId branchMilkTeaId = new BranchMilkTeaId(idBranch,idMilkTea,size);
 		Optional<BranchMilkTea> opt = branchMilkTeaService.findById(branchMilkTeaId);
-		BranchMilkTeaModel branchMilkTea = new BranchMilkTeaModel();
+		BranchVegetableModel branchMilkTea = new BranchVegetableModel();
 		if (opt.isPresent()) {
 			BranchMilkTea entity = opt.get();
 			branchMilkTea.setBranchByBranchMilkTea(entity.getBranchByBranchMilkTea());

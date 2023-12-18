@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import hcmute.entity.MilkTeaCategoryEntity;
 import hcmute.entity.MilkTeaTypeEntity;
-import hcmute.model.MilkTeaTypeModel;
+import hcmute.model.VegetableTypeModel;
 import hcmute.service.IVegetableCategoryService;
 import hcmute.service.IVegetableTypeService;
 
@@ -39,14 +39,14 @@ public class MilkTeaTypeAdminController {
 	}
 	@GetMapping("add")
 	public String add(ModelMap model) {
-		MilkTeaTypeModel milkTeaType = new MilkTeaTypeModel();
+		VegetableTypeModel milkTeaType = new VegetableTypeModel();
 		milkTeaType.setIsEdit(false);
 		model.addAttribute("milkTeaType", milkTeaType);
 		return "admin/customize/customize-milk-tea-type";
 	}
 
 	@PostMapping("saveOrUpdate")
-	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("milkTeaType") MilkTeaTypeModel milkTeaType,
+	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("milkTeaType") VegetableTypeModel milkTeaType,
 			BindingResult result) {
 		if (result.hasErrors()) {
 			return new ModelAndView("admin/customize/customize-milk-tea-type");

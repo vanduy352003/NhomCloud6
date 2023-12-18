@@ -5,9 +5,9 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MilkTeaCategoryModel{
+public class VegetableCategoryModel{
 	private int idCategory;
 	private String name;	
-	private Set<MilkTeaTypeModel> milkTeaTypes;
+	private Set<VegetableTypeModel> vegetableTypes;
 	private Boolean isEdit = false;
 }
