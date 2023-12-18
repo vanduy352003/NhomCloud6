@@ -7,10 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import hcmute.entity.MilkTeaCategoryEntity;
-import hcmute.entity.MilkTeaEntity;
+import hcmute.entity.VegetableCategoryEntity;
+import hcmute.entity.VegetableEntity;
 
 @Repository
-public interface MilkTeaCategoryRepository extends JpaRepository<MilkTeaCategoryEntity, Integer>{
-	List<MilkTeaCategoryEntity> findAll();
+public interface VegetableCategoryRepository extends JpaRepository<VegetableCategoryEntity, Integer>{
+	List<VegetableCategoryEntity> findAll();
 }

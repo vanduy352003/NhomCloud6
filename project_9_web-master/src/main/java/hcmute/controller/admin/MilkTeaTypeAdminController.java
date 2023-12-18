@@ -18,18 +18,18 @@ import org.springframework.web.servlet.ModelAndView;
 import hcmute.entity.MilkTeaCategoryEntity;
 import hcmute.entity.MilkTeaTypeEntity;
 import hcmute.model.MilkTeaTypeModel;
-import hcmute.service.IMilkTeaCategoryService;
-import hcmute.service.IMilkTeaTypeService;
+import hcmute.service.IVegetableCategoryService;
+import hcmute.service.IVegetableTypeService;
 
 @Controller
 @RequestMapping("admin/milk-tea-type")
 public class MilkTeaTypeAdminController {
 
 	@Autowired
-	private IMilkTeaTypeService milkTeaTypeService;
+	private IVegetableTypeService milkTeaTypeService;
 	
 	@Autowired
-	private IMilkTeaCategoryService milkTeaCategoryService;
+	private IVegetableCategoryService milkTeaCategoryService;
 
 	@GetMapping("")
 	public String IndexViewMilkTeaType(ModelMap model) {

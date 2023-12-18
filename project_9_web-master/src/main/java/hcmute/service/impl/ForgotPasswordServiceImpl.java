@@ -59,7 +59,7 @@ public class ForgotPasswordServiceImpl implements IForgotPasswordService {
 
         try {
             helper.setTo(recipientEmail);
-            helper.setSubject("MilkTea - Reset password");
+            helper.setSubject("Vegetable - Reset password");
 
             String content = "<html><body>"
                     + "<p>Xin chào bạn,</p>"

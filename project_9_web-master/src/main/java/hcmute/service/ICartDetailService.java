@@ -11,15 +11,14 @@ import org.springframework.data.repository.query.Param;
 
 import hcmute.embeddedId.CartDetailId;
 import hcmute.entity.CartDetailEntity;
-import hcmute.entity.MilkTeaEntity;
 
 public interface ICartDetailService {
 
-	void addProductToCart(int idCart, int idMilkTea, String size);
+	void addProductToCart(int idCart, int idVegetable, String size);
 	
-	void addProductToFavorite(int idCart, int idMilkTea);
+	void addProductToFavorite(int idCart, int idVegetable);
 
-	List<CartDetailId> findMilkTeaByCartId(int idCart);
+	List<CartDetailId> findVegetableByCartId(int idCart);
 
 	List<CartDetailEntity> findByCartByCartDetailIdCart(int idCart);
 

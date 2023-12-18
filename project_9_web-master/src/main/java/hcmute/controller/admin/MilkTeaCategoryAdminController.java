@@ -12,7 +12,7 @@ import hcmute.entity.MilkTeaCategoryEntity;
 
 import hcmute.model.MilkTeaCategoryModel;
 
-import hcmute.service.IMilkTeaCategoryService;
+import hcmute.service.IVegetableCategoryService;
 
 import javax.validation.Valid;
 
@@ -24,7 +24,7 @@ import java.util.Optional;
 public class MilkTeaCategoryAdminController {
 
 	@Autowired
-	private IMilkTeaCategoryService milkTeaCategoryService;
+	private IVegetableCategoryService milkTeaCategoryService;
 
 	@GetMapping("")
 	public String indexViewCategory(ModelMap model) {

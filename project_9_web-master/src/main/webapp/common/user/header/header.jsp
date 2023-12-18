@@ -6,17 +6,18 @@
 <%@ page import="hcmute.entity.MilkTeaCategoryEntity"%>
 <%@ page import="hcmute.entity.MilkTeaTypeEntity"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="hcmute.service.IMilkTeaCategoryService"%>
-<%@ page import="hcmute.service.IMilkTeaTypeService"%>
+<%@ page import="hcmute.service.IVegetableCategoryService"%>
+<%@ page import="hcmute.service.IVegetableTypeService"%>
 <%@ page import="org.springframework.web.context.WebApplicationContext"%>
 <%@ page
 	import="org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%
+p
+
 WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(application);
 
-// Retrieve the beans
-IMilkTeaCategoryService milkTeaCategoryService = context.getBean(IMilkTeaCategoryService.class);
-IMilkTeaTypeService milkTeaTypeService = context.getBean(IMilkTeaTypeService.class);
+// Retrieve the beIVegetableCategoryServicevice milkTeaCategoryService = context.getBIVegetableCategoryServicevice.class);
+IVegetableTypeService milkTeaTypeService = context.getBean(IVegetableTypeService.class);
 
 List<MilkTeaCategoryEntity> categories = milkTeaCategoryService.findAll();
 List<List<MilkTeaTypeEntity>> types = new ArrayList<>();
@@ -38,7 +39,6 @@ if (cookies != null) {
 	break;
 		}
 	}
-}
 %>
 
 <!DOCTYPE html>

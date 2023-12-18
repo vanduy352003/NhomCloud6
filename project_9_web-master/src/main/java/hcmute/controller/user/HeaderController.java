@@ -25,19 +25,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import hcmute.entity.MilkTeaEntity;
-import hcmute.service.IMilkTeaCategoryService;
-import hcmute.service.IMilkTeaService;
-import hcmute.service.IMilkTeaTypeService;
+import hcmute.service.IVegetableCategoryService;
+import hcmute.service.IVegetableService;
+import hcmute.service.IVegetableTypeService;
 
 @Controller
 @RequestMapping("header")
 public class HeaderController {
 	@Autowired
-	IMilkTeaCategoryService milkTeaCategoryService;
+	IVegetableCategoryService milkTeaCategoryService;
 	@Autowired
-	IMilkTeaTypeService milkTeaTypeService;
+	IVegetableTypeService milkTeaTypeService;
 	@Autowired
-	IMilkTeaService milkTeaService;
+	IVegetableService milkTeaService;
 
 	@GetMapping("/search")
 	public String showCategory(Model model, @RequestParam("page") Optional<Integer> page) {

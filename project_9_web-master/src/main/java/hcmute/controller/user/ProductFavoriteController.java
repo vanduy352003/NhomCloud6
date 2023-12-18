@@ -16,7 +16,7 @@ import hcmute.embeddedId.CartDetailId;
 import hcmute.entity.MilkTeaEntity;
 import hcmute.model.MilkTeaModel;
 import hcmute.service.ICartDetailService;
-import hcmute.service.IMilkTeaService;
+import hcmute.service.IVegetableService;
 
 @Controller
 @RequestMapping("product_favorite")
@@ -26,7 +26,7 @@ public class ProductFavoriteController {
 	ICartDetailService cartDetailService;
 
 	@Autowired
-	IMilkTeaService milkTeaService;
+	IVegetableService milkTeaService;
 
 	private List<MilkTeaModel> getLists() {
 		List<CartDetailId> milkTeas = cartDetailService.findMilkTeaByCartId(1);

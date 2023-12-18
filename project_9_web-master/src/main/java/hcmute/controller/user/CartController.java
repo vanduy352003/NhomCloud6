@@ -31,11 +31,11 @@ import hcmute.entity.MilkTeaEntity;
 import hcmute.model.MilkTeaModel;
 import hcmute.model.OrderProduct;
 import hcmute.model.OrderProduct.OrderItem;
-import hcmute.service.IBranchMilkTeaService;
+import hcmute.service.IBranchVegetableService;
 import hcmute.service.IBranchService;
 import hcmute.service.ICartDetailService;
 import hcmute.service.ICartService;
-import hcmute.service.IMilkTeaService;
+import hcmute.service.IVegetableService;
 import hcmute.service.IStorageService;
 import hcmute.service.impl.CookieServiceImpl;
 
@@ -47,13 +47,13 @@ public class CartController {
 	ICartDetailService cartDetailService;
 
 	@Autowired
-	IMilkTeaService milkTeaService;
+	IVegetableService milkTeaService;
 
 	@Autowired
 	IBranchService branchService;
 
 	@Autowired
-	IBranchMilkTeaService branchMilkTeaService;
+	IBranchVegetableService branchMilkTeaService;
 	
 	@Autowired
 	CookieServiceImpl cookieServiceImpl;

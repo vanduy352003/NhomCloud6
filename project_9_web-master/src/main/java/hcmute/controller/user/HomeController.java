@@ -26,7 +26,7 @@ import hcmute.entity.MilkTeaEntity;
 import hcmute.entity.UserEntity;
 import hcmute.model.MilkTeaModel;
 import hcmute.service.ICartDetailService;
-import hcmute.service.IMilkTeaService;
+import hcmute.service.IVegetableService;
 import hcmute.service.IStorageService;
 import hcmute.service.IUserService;
 import hcmute.service.impl.SessionServiceImpl;
@@ -35,7 +35,7 @@ import hcmute.service.impl.SessionServiceImpl;
 @SessionAttributes("user")
 public class HomeController {
 	@Autowired
-	IMilkTeaService milkTeaService;
+	IVegetableService milkTeaService;
 	@Autowired
 	IUserService userService;
 	@Autowired

@@ -27,7 +27,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import hcmute.entity.BranchEntity;
 import hcmute.entity.UserEntity;
 import hcmute.service.IBranchService;
-import hcmute.service.IMilkTeaService;
+import hcmute.service.IVegetableService;
 import hcmute.service.IOrderDetailService;
 import hcmute.service.IOrderService;
 import hcmute.service.IUserRoleService;
@@ -40,7 +40,7 @@ public class AdminController {
 	@Autowired
 	private IOrderService orderService;
 	@Autowired
-	private IMilkTeaService milkTeaService;
+	private IVegetableService milkTeaService;
 	@Autowired IOrderDetailService orderDetailService;
 	
 	@GetMapping("index")

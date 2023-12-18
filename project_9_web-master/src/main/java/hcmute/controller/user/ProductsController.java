@@ -21,20 +21,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import hcmute.entity.MilkTeaCategoryEntity;
 import hcmute.entity.MilkTeaEntity;
 import hcmute.entity.MilkTeaTypeEntity;
-import hcmute.service.IMilkTeaCategoryService;
-import hcmute.service.IMilkTeaService;
-import hcmute.service.IMilkTeaTypeService;
+import hcmute.service.IVegetableCategoryService;
+import hcmute.service.IVegetableService;
+import hcmute.service.IVegetableTypeService;
 
 @Controller
 @RequestMapping("products")
 public class ProductsController {
 
 	@Autowired
-	IMilkTeaCategoryService milkTeaCategoryService;
+	IVegetableCategoryService milkTeaCategoryService;
 	@Autowired
-	IMilkTeaTypeService milkTeaTypeService;
+	IVegetableTypeService milkTeaTypeService;
 	@Autowired
-	IMilkTeaService milkTeaService;
+	IVegetableService milkTeaService;
 
 	@GetMapping("")
 	public String showCategory(Model model, @RequestParam("page") Optional<Integer> page) {

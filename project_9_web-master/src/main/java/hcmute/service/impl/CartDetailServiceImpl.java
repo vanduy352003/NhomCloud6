@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import hcmute.embeddedId.CartDetailId;
 import hcmute.entity.CartDetailEntity;
-import hcmute.entity.MilkTeaEntity;
+import hcmute.entity.VegetableEntity;
 import hcmute.repository.CartDetailRepository;
 import hcmute.repository.CartRepository;
 import hcmute.service.ICartDetailService;
@@ -73,17 +73,17 @@ public class CartDetailServiceImpl implements ICartDetailService {
 	}
 
     @Override
-	public List<CartDetailId> findMilkTeaByCartId(int idCart) {
-    	return cartDetailRepository.findMilkTeaByCartId(idCart);
+	public List<CartDetailId> findVegetableByCartId(int idCart) {
+    	return cartDetailRepository.findVegetableByCartId(idCart);
     }
 
 	@Override
-	public void addProductToCart(int idCart, int idMilkTea, String size) {
-		cartDetailRepository.addProductToCart(idCart, idMilkTea, size);		
+	public void addProductToCart(int idCart, int idVegetable, String size) {
+		cartDetailRepository.addProductToCart(idCart, idVegetable, size);		
 	}
 	@Override
-	public void addProductToFavorite(int idCart, int idMilkTea) {
-		cartDetailRepository.addProductToFavorite(idCart, idMilkTea);		
+	public void addProductToFavorite(int idCart, int idVegetable) {
+		cartDetailRepository.addProductToFavorite(idCart, idVegetable);		
 	}
 
 }

@@ -17,9 +17,9 @@ import hcmute.entity.BranchMilkTea;
 import hcmute.entity.MilkTeaEntity;
 import hcmute.model.BranchMilkTeaModel;
 
-import hcmute.service.IBranchMilkTeaService;
+import hcmute.service.IBranchVegetableService;
 import hcmute.service.IBranchService;
-import hcmute.service.IMilkTeaService;
+import hcmute.service.IVegetableService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -29,13 +29,13 @@ import java.util.Optional;
 public class BranchMilkTeaAdminController {
 
 	@Autowired
-	private IBranchMilkTeaService branchMilkTeaService;
+	private IBranchVegetableService branchMilkTeaService;
 	
 	@Autowired
 	private IBranchService branchService;
 	
 	@Autowired
-	private IMilkTeaService milkTeaService;
+	private IVegetableService milkTeaService;
 	
 	@GetMapping("")
 	public String indexViewBranchMilkTea(ModelMap model) {

@@ -28,8 +28,8 @@ import hcmute.entity.MilkTeaEntity;
 import hcmute.entity.MilkTeaTypeEntity;
 import hcmute.model.BranchModel;
 import hcmute.model.MilkTeaModel;
-import hcmute.service.IMilkTeaService;
-import hcmute.service.IMilkTeaTypeService;
+import hcmute.service.IVegetableService;
+import hcmute.service.IVegetableTypeService;
 import hcmute.service.IStorageService;
 
 @Controller
@@ -37,13 +37,13 @@ import hcmute.service.IStorageService;
 public class MilkTeaAdminController {
 
 	@Autowired
-	private IMilkTeaService milkTeaService;
+	private IVegetableService milkTeaService;
 
 	@Autowired
 	private IStorageService storageService;
 	
 	@Autowired
-	private IMilkTeaTypeService milkTeaTypeService;
+	private IVegetableTypeService milkTeaTypeService;
 
 	@GetMapping("")
 	public String IndexViewMilkTea(ModelMap model) {

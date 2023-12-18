@@ -26,7 +26,7 @@ import hcmute.entity.UserEntity;
 import hcmute.model.AuthProvider;
 import hcmute.repository.UserRepository;
 import hcmute.service.IForgotPasswordService;
-import hcmute.service.IMilkTeaService;
+import hcmute.service.IVegetableService;
 import hcmute.service.IUserService;
 import hcmute.service.impl.CookieServiceImpl;
 import hcmute.service.impl.ParamServiceImpl;

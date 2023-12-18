@@ -12,23 +12,23 @@ import org.springframework.stereotype.Repository;
 
 import hcmute.embeddedId.CartDetailId;
 import hcmute.entity.CartDetailEntity;
-import hcmute.entity.MilkTeaEntity;
+import hcmute.entity.VegetableEntity;
 
 @Repository
 public interface CartDetailRepository extends JpaRepository<CartDetailEntity, CartDetailId> {
 	List<CartDetailEntity> findByCartByCartDetailIdCart(int idCart);
 
     @Query("SELECT cd.idCartDetail FROM CartDetailEntity cd WHERE cd.cartByCartDetail.idCart = :idCart")
-    List<CartDetailId> findMilkTeaByCartId(int idCart);
+    List<CartDetailId> findVegetableByCartId(int idCart);
     
     // Add new product to cart
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO cart_detail (id_cart, id_milk_tea, size) VALUES (:idCart, :idMilkTea, :size)", nativeQuery = true)
-    void addProductToCart(@Param("idCart") int idCart, @Param("idMilkTea") int idMilkTea, @Param("size") String size);
+    @Query(value = "INSERT INTO cart_detail (id_cart, id_milk_tea, size) VALUES (:idCart, :idVegetable, :size)", nativeQuery = true)
+    void addProductToCart(@Param("idCart") int idCart, @Param("idVegetable") int idVegetable, @Param("size") String size);
  // Add new product to favorite
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO cart_detail (id_cart, id_milk_tea) VALUES (:idCart, :idMilkTea)", nativeQuery = true)
-	void addProductToFavorite(@Param("idCart") int idCart, @Param("idMilkTea") int idMilkTea);
+    @Query(value = "INSERT INTO cart_detail (id_cart, id_milk_tea) VALUES (:idCart, :idVegetable)", nativeQuery = true)
+	void addProductToFavorite(@Param("idCart") int idCart, @Param("idVegetable") int idVegetable);
 }

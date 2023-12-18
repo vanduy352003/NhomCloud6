@@ -123,7 +123,7 @@ public class UserServiceImpl implements IUserService {
 
         try {
             helper.setTo(user.getEmail());
-            helper.setSubject("MilkTea - Verify your email");
+            helper.setSubject(" - Verify your email");
 
             String content = "Thân gửi " + user.getUsername() + ",<br>"
                     + "Vui lòng nhấp vào đường dẫn bên dưới để xác nhận việc đăng ký tài khoản:<br>"

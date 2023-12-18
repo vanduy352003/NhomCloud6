@@ -41,7 +41,7 @@ import hcmute.model.OrderModel;
 import hcmute.model.OrderProduct;
 import hcmute.model.OrderProduct.OrderItem;
 import hcmute.service.IBranchService;
-import hcmute.service.IMilkTeaService;
+import hcmute.service.IVegetableService;
 import hcmute.service.IOrderDetailService;
 import hcmute.service.IOrderService;
 import hcmute.service.IPayMethodService;
@@ -64,7 +64,7 @@ public class PaymentController {
 	IPayMethodService payMethodService;
 
 	@Autowired
-	IMilkTeaService milkTeaService;
+	IVegetableService milkTeaService;
 	
 	@Autowired
 	IBranchService branchService;
