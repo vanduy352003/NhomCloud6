@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import hcmute.entity.MilkTeaCategoryEntity;
-import hcmute.entity.MilkTeaEntity;
-import hcmute.entity.MilkTeaTypeEntity;
+import hcmute.entity.VegetableCategoryEntity;
+import hcmute.entity.VegetableEntity;
+import hcmute.entity.VegetableTypeEntity;
 import hcmute.service.IVegetableCategoryService;
 import hcmute.service.IVegetableService;
 import hcmute.service.IVegetableTypeService;
@@ -30,32 +30,32 @@ import hcmute.service.IVegetableTypeService;
 public class ProductsController {
 
 	@Autowired
-	IVegetableCategoryService milkTeaCategoryService;
+	IVegetableCategoryService vegetableCategoryService;
 	@Autowired
-	IVegetableTypeService milkTeaTypeService;
+	IVegetableTypeService vegetableTypeService;
 	@Autowired
-	IVegetableService milkTeaService;
+	IVegetableService vegetableService;
 
 	@GetMapping("")
 	public String showCategory(Model model, @RequestParam("page") Optional<Integer> page) {
-		List<MilkTeaCategoryEntity> categories = milkTeaCategoryService.findAll();
-		List<List<MilkTeaTypeEntity>> types = new ArrayList<List<MilkTeaTypeEntity>>();
+		List<VegetableCategoryEntity> categories = vegetableCategoryService.findAll();
+		List<List<VegetableTypeEntity>> types = new ArrayList<List<VegetableTypeEntity>>();
 		model.addAttribute("categories", categories);
-		for (MilkTeaCategoryEntity category : categories) {
-			List<MilkTeaTypeEntity> categoriesWithTypes = milkTeaTypeService
+		for (VegetableCategoryEntity category : categories) {
+			List<VegetableTypeEntity> categoriesWithTypes = vegetableTypeService
 					.findAllByCategoryId(category.getIdCategory());
 			types.add(categoriesWithTypes);
 		}
 		model.addAttribute("types", types);
 
-		int count = (int) milkTeaService.count();
+		int count = (int) vegetableService.count();
 		int currentPage = page.orElse(1);
 		int pageSize = 6;
 
-		Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("idMilkTea"));
-		Page<MilkTeaEntity> resultpaPage = null;
+		Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("idVegetable"));
+		Page<VegetableEntity> resultpaPage = null;
 
-		resultpaPage = milkTeaService.findAll(pageable);
+		resultpaPage = vegetableService.findAll(pageable);
 
 		int totalPages = resultpaPage.getTotalPages();
 		if (totalPages > 0) {
@@ -71,33 +71,33 @@ public class ProductsController {
 			model.addAttribute("pageNumbers", pageNumbers);
 
 		}
-		model.addAttribute("milkTeas", resultpaPage);
+		model.addAttribute("vegetables", resultpaPage);
 
 		return "user/products";
 
 	}
 
 	@RequestMapping("type/{id}")
-	public String getMilkTeaByType(Model model, @PathVariable("id") int typeId,
+	public String getVegetableByType(Model model, @PathVariable("id") int typeId,
 			@RequestParam("page") Optional<Integer> page) {
-		List<MilkTeaCategoryEntity> categories = milkTeaCategoryService.findAll();
-		List<List<MilkTeaTypeEntity>> types = new ArrayList<List<MilkTeaTypeEntity>>();
+		List<VegetableCategoryEntity> categories = vegetableCategoryService.findAll();
+		List<List<VegetableTypeEntity>> types = new ArrayList<List<VegetableTypeEntity>>();
 		model.addAttribute("categories", categories);
-		for (MilkTeaCategoryEntity category : categories) {
-			List<MilkTeaTypeEntity> categoriesWithTypes = milkTeaTypeService
+		for (VegetableCategoryEntity category : categories) {
+			List<VegetableTypeEntity> categoriesWithTypes = vegetableTypeService
 					.findAllByCategoryId(category.getIdCategory());
 			types.add(categoriesWithTypes);
 		}
 		model.addAttribute("types", types);
 
-		int count = milkTeaService.countByTypeId(typeId);
+		int count = vegetableService.countByTypeId(typeId);
 		int currentPage = page.orElse(1);
 		int pageSize = 6;
 
-		Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("idMilkTea"));
-		Page<MilkTeaEntity> resultpaPage = null;
+		Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("idVegetable"));
+		Page<VegetableEntity> resultpaPage = null;
 
-		resultpaPage = milkTeaService.findAllByTypeId(typeId, pageable);
+		resultpaPage = vegetableService.findAllByTypeId(typeId, pageable);
 
 		int totalPages = resultpaPage.getTotalPages();
 		if (totalPages > 0) {
@@ -113,7 +113,7 @@ public class ProductsController {
 			model.addAttribute("pageNumbers", pageNumbers);
 
 		}
-		model.addAttribute("milkTeaByTypes", resultpaPage);
+		model.addAttribute("vegetableByTypes", resultpaPage);
 		model.addAttribute("idActive", typeId);
 		return "user/products";
 	}

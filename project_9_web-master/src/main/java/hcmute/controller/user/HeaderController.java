@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import hcmute.entity.MilkTeaEntity;
+import hcmute.entity.VegetableEntity;
 import hcmute.service.IVegetableCategoryService;
 import hcmute.service.IVegetableService;
 import hcmute.service.IVegetableTypeService;
@@ -33,21 +33,21 @@ import hcmute.service.IVegetableTypeService;
 @RequestMapping("header")
 public class HeaderController {
 	@Autowired
-	IVegetableCategoryService milkTeaCategoryService;
+	IVegetableCategoryService vegetableCategoryService;
 	@Autowired
-	IVegetableTypeService milkTeaTypeService;
+	IVegetableTypeService vegetableTypeService;
 	@Autowired
-	IVegetableService milkTeaService;
+	IVegetableService vegetableService;
 
 	@GetMapping("/search")
 	public String showCategory(Model model, @RequestParam("page") Optional<Integer> page) {
-		int count = (int) milkTeaService.count();
+		int count = (int) vegetableService.count();
 		int currentPage = page.orElse(1);
 		int pageSize = 8;
 
-		Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("id_milk_tea"));
-		Page<MilkTeaEntity> resultpaPage = null;
-		resultpaPage = milkTeaService.findAll(pageable);
+		Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("id_vegetable"));
+		Page<VegetableEntity> resultpaPage = null;
+		resultpaPage = vegetableService.findAll(pageable);
 
 		int totalPages = resultpaPage.getTotalPages();
 		if (totalPages > 0) {
@@ -63,24 +63,24 @@ public class HeaderController {
 			model.addAttribute("pageNumbers", pageNumbers);
 
 		}
-		model.addAttribute("milkTeas", resultpaPage);
+		model.addAttribute("vegetables", resultpaPage);
 		return "user/search";
 	}
 
 	@RequestMapping("search/content={name}")
-	public String getMilkTeaByNameContaining(@PathVariable("name") String encodedName, Model model,
+	public String getVegetableByNameContaining(@PathVariable("name") String encodedName, Model model,
 			@RequestParam("page") Optional<Integer> page) {
 		String name;
 		try {
 			name = URLDecoder.decode(encodedName, StandardCharsets.UTF_8.toString());
 			model.addAttribute("content", name);
-			int count = milkTeaService.countByNameContaining(name);
+			int count = vegetableService.countByNameContaining(name);
 			int currentPage = page.orElse(1);
 			int pageSize = 8;
 
-			Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("id_milk_tea"));
-			Page<MilkTeaEntity> resultpaPage = null;
-			resultpaPage = milkTeaService.findByNameContaining(name, pageable);
+			Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("id_vegetable"));
+			Page<VegetableEntity> resultpaPage = null;
+			resultpaPage = vegetableService.findByNameContaining(name, pageable);
 			int totalPages = resultpaPage.getTotalPages();
 			if (totalPages > 0) {
 				int start = Math.max(1, currentPage - 2);
@@ -94,7 +94,7 @@ public class HeaderController {
 				List<Integer> pageNumbers = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
 				model.addAttribute("pageNumbers", pageNumbers);
 			}
-			model.addAttribute("milkTeasByNames", resultpaPage);
+			model.addAttribute("vegetablesByNames", resultpaPage);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,12 +110,12 @@ public class HeaderController {
 			String name = URLDecoder.decode(encodedName, StandardCharsets.UTF_8.toString());
 			model.addAttribute("content", name);
 
-			int count = milkTeaService.countByNameContaining(name);
+			int count = vegetableService.countByNameContaining(name);
 			int currentPage = page.orElse(1);
 			int pageSize = 8;
 
-			Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("id_milk_tea"));
-			Page<MilkTeaEntity> resultPage = milkTeaService.findByNameContaining(name, pageable);
+			Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("id_vegetable"));
+			Page<VegetableEntity> resultPage = vegetableService.findByNameContaining(name, pageable);
 			int totalPages = resultPage.getTotalPages();
 			if (totalPages > 0) {
 				int start = Math.max(1, currentPage - 2);
@@ -129,30 +129,30 @@ public class HeaderController {
 				List<Integer> pageNumbers = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
 				model.addAttribute("pageNumbers", pageNumbers);
 			}
-			model.addAttribute("milkTeaBySorts", resultPage);
+			model.addAttribute("vegetableBySorts", resultPage);
 
 			if ("outstanding".equals(method)) {
-				List<MilkTeaEntity> milkTeas = milkTeaService.findByNameContaining(name);
-				milkTeaService.sortByOrderDetailQuantity(milkTeas);
-				// Chuyển đổi List<MilkTeaEntity> sang Page<MilkTeaEntity>
+				List<VegetableEntity> vegetables = vegetableService.findByNameContaining(name);
+				vegetableService.sortByOrderDetailQuantity(vegetables);
+				// Chuyển đổi List<VegetableEntity> sang Page<VegetableEntity>
 				// Tính toán index bắt đầu và kết thúc của trang
 				int start = (int) pageable.getOffset();
-				int end = Math.min((start + pageable.getPageSize()), milkTeas.size());
+				int end = Math.min((start + pageable.getPageSize()), vegetables.size());
 				// Tạo một sublist của danh sách đã sắp xếp để giữ lại các phần tử của trang cụ thể
-				List<MilkTeaEntity> pagedMilkTeas = milkTeas.subList(start, end);
+				List<VegetableEntity> pagedVegetables = vegetables.subList(start, end);
 				// Tạo một đối tượng PageImpl mới với danh sách đã cắt và thông tin phân trang từ resultPage
-				Page<MilkTeaEntity> milkTeaPage = new PageImpl<>(pagedMilkTeas, pageable, milkTeas.size());
-				model.addAttribute("milkTeaBySorts", milkTeaPage);
+				Page<VegetableEntity> vegetablePage = new PageImpl<>(pagedVegetables, pageable, vegetables.size());
+				model.addAttribute("vegetableBySorts", vegetablePage);
 				
 			} else if ("low-to-high".equals(method)) {
 				Pageable sortPageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("cost").ascending());
-				Page<MilkTeaEntity> milkTeas = milkTeaService.findByNameContaining(name, sortPageable);
-				model.addAttribute("milkTeaBySorts", milkTeas);
+				Page<VegetableEntity> vegetables = vegetableService.findByNameContaining(name, sortPageable);
+				model.addAttribute("vegetableBySorts", vegetables);
 				
 			} else if ("high-to-low".equals(method)) {
 				Pageable sortPageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("cost").descending());
-				Page<MilkTeaEntity> milkTeas = milkTeaService.findByNameContaining(name, sortPageable);
-				model.addAttribute("milkTeaBySorts", milkTeas);
+				Page<VegetableEntity> vegetables = vegetableService.findByNameContaining(name, sortPageable);
+				model.addAttribute("vegetableBySorts", vegetables);
 			}
 
 			return "user/search";

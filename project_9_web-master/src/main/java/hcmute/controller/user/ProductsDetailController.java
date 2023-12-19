@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import hcmute.entity.BranchEntity;
 import hcmute.entity.CartEntity;
-import hcmute.entity.MilkTeaEntity;
+import hcmute.entity.VegetableEntity;
 import hcmute.model.VegetableModel;
 import hcmute.model.OrderProduct;
 import hcmute.model.OrderProduct.OrderItem;
@@ -40,13 +40,13 @@ import hcmute.service.impl.CookieServiceImpl;
 @RequestMapping("product_detail")
 public class ProductsDetailController {
 	@Autowired
-	IVegetableService milkTeaService;
+	IVegetableService vegetableService;
 	@Autowired
 	ICartDetailService cartDetailService;
 	@Autowired
 	IBranchService branchService;
 	@Autowired
-	IBranchVegetableService branchMilkTeaService;
+	IBranchVegetableService branchVegetableService;
 	@Autowired
 	CookieServiceImpl cookieServiceImpl;
 	@Autowired
@@ -54,21 +54,21 @@ public class ProductsDetailController {
 
 	@GetMapping("/{id}")
 	public ModelAndView detail(ModelMap model, @PathVariable("id") int id, RedirectAttributes redirectAttributes) {
-		Optional<MilkTeaEntity> optMilkTea = milkTeaService.findByIdMilkTea(id);
-		VegetableModel milkTeaModel = new VegetableModel();
+		Optional<VegetableEntity> optVegetable = vegetableService.findByIdVegetable(id);
+		VegetableModel vegetableModel = new VegetableModel();
 
-		if (optMilkTea.isPresent()) {
-			MilkTeaEntity entity = optMilkTea.get();
+		if (optVegetable.isPresent()) {
+			VegetableEntity entity = optVegetable.get();
 
 			// copy from entity to model
-			BeanUtils.copyProperties(entity, milkTeaModel);
-			int typeId = entity.getMilkTeaTypeByMilkTea().getIdType();
+			BeanUtils.copyProperties(entity, vegetableModel);
+			int typeId = entity.getVegetableTypeByVegetable().getIdType();
 
 			// set attributes for model
-			milkTeaModel.setMilkTeaType(entity.getMilkTeaTypeByMilkTea().getName());
-			milkTeaModel.setMilkTeaTypeId(typeId);
+			vegetableModel.setVegetableType(entity.getVegetableTypeByVegetable().getName());
+			vegetableModel.setVegetableTypeId(typeId);
 
-			List<MilkTeaEntity> relevantProducts = milkTeaService.findRelevantProducts(typeId, id);
+			List<VegetableEntity> relevantProducts = vegetableService.findRelevantProducts(typeId, id);
 
 			// get flash attributes from previous request
 			String cartMessage = (String) redirectAttributes.getFlashAttributes().get("cartMessage");
@@ -77,7 +77,7 @@ public class ProductsDetailController {
 				model.addAttribute("cartMessage", cartMessage);
 			}
 
-			model.addAttribute("milkTea", milkTeaModel);
+			model.addAttribute("vegetable", vegetableModel);
 			model.addAttribute("relevantProducts", relevantProducts);
 
 			return new ModelAndView("user/product_detail", model);
@@ -95,19 +95,19 @@ public class ProductsDetailController {
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<BranchEntity> listBranches = branchService.findAll();
 		List<Integer> listBranchesEligible = new ArrayList<Integer>();
-		int idMilkTea = 0;
+		int idVegetable = 0;
 		try {
 			OrderProduct orderProduct = objectMapper.readValue(data, OrderProduct.class);
 			Boolean isSuccess = false;
 			for (BranchEntity branch : listBranches) {
 				Boolean isChecked = true;
 				for (OrderItem item : orderProduct.getList()) {
-					idMilkTea = Integer.parseInt(item.getIdMilkTea());
-					Optional<MilkTeaEntity> entity = milkTeaService.findByIdMilkTea(idMilkTea);
+					idVegetable = Integer.parseInt(item.getIdVegetable());
+					Optional<VegetableEntity> entity = vegetableService.findByIdVegetable(idVegetable);
 					if (entity.isPresent()) {
 						int idBranch = branch.getIdBranch();
-						Optional<Integer> remainQuantityOptional = branchMilkTeaService
-								.findRemainQuantityByBranchIdAndMilkTeaId(idBranch, idMilkTea, item.getSize());
+						Optional<Integer> remainQuantityOptional = branchVegetableService
+								.findRemainQuantityByBranchIdAndVegetableId(idBranch, idVegetable, item.getSize());
 						if (remainQuantityOptional.isPresent()) {
 							if (remainQuantityOptional.get() < Integer.parseInt(item.getQuantity())) {
 								isChecked = false;
@@ -133,23 +133,23 @@ public class ProductsDetailController {
 				model.addAttribute("message",
 						"Xin lỗi quý khách! Hiện tại sản phẩm này đã hết hàng trên toàn bộ chi nhánh!");
 				model.addAttribute("status", "fail");
-				Optional<MilkTeaEntity> optMilkTea = milkTeaService.findByIdMilkTea(idMilkTea);
-				VegetableModel milkTeaModel = new VegetableModel();
+				Optional<VegetableEntity> optVegetable = vegetableService.findByIdVegetable(idVegetable);
+				VegetableModel vegetableModel = new VegetableModel();
 
-				if (optMilkTea.isPresent()) {
-					MilkTeaEntity entity = optMilkTea.get();
+				if (optVegetable.isPresent()) {
+					VegetableEntity entity = optVegetable.get();
 
 					// copy from entity to model
-					BeanUtils.copyProperties(entity, milkTeaModel);
-					int typeId = entity.getMilkTeaTypeByMilkTea().getIdType();
+					BeanUtils.copyProperties(entity, vegetableModel);
+					int typeId = entity.getVegetableTypeByVegetable().getIdType();
 
 					// set attributes for model
-					milkTeaModel.setMilkTeaType(entity.getMilkTeaTypeByMilkTea().getName());
-					milkTeaModel.setMilkTeaTypeId(typeId);
+					vegetableModel.setVegetableType(entity.getVegetableTypeByVegetable().getName());
+					vegetableModel.setVegetableTypeId(typeId);
 
-					List<MilkTeaEntity> relevantProducts = milkTeaService.findRelevantProducts(typeId, idMilkTea);
+					List<VegetableEntity> relevantProducts = vegetableService.findRelevantProducts(typeId, idVegetable);
 
-					model.addAttribute("milkTea", milkTeaModel);
+					model.addAttribute("vegetable", vegetableModel);
 					model.addAttribute("relevantProducts", relevantProducts);
 				}
 				return "user/product_detail";

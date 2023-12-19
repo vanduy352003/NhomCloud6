@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import hcmute.entity.MilkTeaEntity;
+import hcmute.entity.VegetableEntity;
 import hcmute.entity.UserEntity;
 import hcmute.model.VegetableModel;
 import hcmute.service.ICartDetailService;
@@ -35,7 +35,7 @@ import hcmute.service.impl.SessionServiceImpl;
 @SessionAttributes("user")
 public class HomeController {
 	@Autowired
-	IVegetableService milkTeaService;
+	IVegetableService vegetableService;
 	@Autowired
 	IUserService userService;
 	@Autowired
@@ -46,9 +46,9 @@ public class HomeController {
 	private IStorageService storageService;
 	@GetMapping("home")
 	public String LoadData(ModelMap model, HttpSession session) {
-		List<MilkTeaEntity> list1 = milkTeaService.findFiveProductOutstanding();
+		List<VegetableEntity> list1 = vegetableService.findFiveProductOutstanding();
 		model.addAttribute("list1", list1);
-		List<MilkTeaEntity> list2 = milkTeaService.findFiveProduct();
+		List<VegetableEntity> list2 = vegetableService.findFiveProduct();
 		model.addAttribute("list2", list2);
 		return "user/home";
 	}
@@ -68,23 +68,23 @@ public class HomeController {
     //Sau khi thêm xong thì gửi message ra
     @GetMapping("home/{id}")
 	public ModelAndView detail(ModelMap model, @PathVariable("id") int id, RedirectAttributes redirectAttributes) {
-		Optional<MilkTeaEntity> optMilkTea = milkTeaService.findByIdMilkTea(id);
-		VegetableModel milkTeaModel = new VegetableModel();
+		Optional<VegetableEntity> optVegetable = vegetableService.findByIdVegetable(id);
+		VegetableModel vegetableModel = new VegetableModel();
 
-		if (optMilkTea.isPresent()) {
-			MilkTeaEntity entity = optMilkTea.get();
-			BeanUtils.copyProperties(entity, milkTeaModel);
-			int typeId = entity.getMilkTeaTypeByMilkTea().getIdType();
-			milkTeaModel.setMilkTeaType(entity.getMilkTeaTypeByMilkTea().getName());
-			milkTeaModel.setMilkTeaTypeId(typeId);
+		if (optVegetable.isPresent()) {
+			VegetableEntity entity = optVegetable.get();
+			BeanUtils.copyProperties(entity, vegetableModel);
+			int typeId = entity.getVegetableTypeByVegetable().getIdType();
+			vegetableModel.setVegetableType(entity.getVegetableTypeByVegetable().getName());
+			vegetableModel.setVegetableTypeId(typeId);
 	        String cartMessage = (String) redirectAttributes.getFlashAttributes().get("cartMessage");
 			if (cartMessage != null) {
 				model.addAttribute("cartMessage", cartMessage);
 			}
-			model.addAttribute("milkTea", milkTeaModel);
-			List<MilkTeaEntity> list1 = milkTeaService.findFiveProductOutstanding();
+			model.addAttribute("vegetable", vegetableModel);
+			List<VegetableEntity> list1 = vegetableService.findFiveProductOutstanding();
 			model.addAttribute("list1", list1);
-			List<MilkTeaEntity> list2 = milkTeaService.findFiveProduct();
+			List<VegetableEntity> list2 = vegetableService.findFiveProduct();
 			model.addAttribute("list2", list2);
 			return new ModelAndView("user/home", model);
 		}

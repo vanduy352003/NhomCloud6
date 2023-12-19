@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import hcmute.embeddedId.CartDetailId;
-import hcmute.entity.MilkTeaEntity;
+import hcmute.entity.VegetableEntity;
 import hcmute.model.VegetableModel;
 import hcmute.service.ICartDetailService;
 import hcmute.service.IVegetableService;
@@ -26,26 +26,26 @@ public class ProductFavoriteController {
 	ICartDetailService cartDetailService;
 
 	@Autowired
-	IVegetableService milkTeaService;
+	IVegetableService vegetableService;
 
 	private List<VegetableModel> getLists() {
-		List<CartDetailId> milkTeas = cartDetailService.findMilkTeaByCartId(1);
-		List<VegetableModel> listmilkteas = new ArrayList<VegetableModel>();
-		for (CartDetailId result : milkTeas) {
-			Optional<MilkTeaEntity> milktea = milkTeaService.findByIdMilkTea(result.getIdMilkTea());
-			if (milktea.isPresent()) {
-				MilkTeaEntity entity = milktea.get();
-				VegetableModel milkTeaModel = new VegetableModel();
-				BeanUtils.copyProperties(entity, milkTeaModel);
-				listmilkteas.add(milkTeaModel);
+		List<CartDetailId> vegetables = cartDetailService.findVegetableByCartId(1);
+		List<VegetableModel> listvegetables = new ArrayList<VegetableModel>();
+		for (CartDetailId result : vegetables) {
+			Optional<VegetableEntity> vegetable = vegetableService.findByIdVegetable(result.getIdVegetable());
+			if (vegetable.isPresent()) {
+				VegetableEntity entity = vegetable.get();
+				VegetableModel vegetableModel = new VegetableModel();
+				BeanUtils.copyProperties(entity, vegetableModel);
+				listvegetables.add(vegetableModel);
 			}
 		}
-		return listmilkteas;
+		return listvegetables;
 	}
 
 	@GetMapping("")
 	public String list(ModelMap model, @RequestParam(value = "status", required = false) String status) {
-		model.addAttribute("listmilkteas", this.getLists());
+		model.addAttribute("listvegetables", this.getLists());
 		model.addAttribute("status", status);
 		return "user/favorite";
 	}

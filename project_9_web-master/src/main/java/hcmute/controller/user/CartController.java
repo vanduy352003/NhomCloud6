@@ -27,7 +27,7 @@ import hcmute.embeddedId.CartDetailId;
 import hcmute.entity.BranchEntity;
 import hcmute.entity.CartDetailEntity;
 import hcmute.entity.CartEntity;
-import hcmute.entity.MilkTeaEntity;
+import hcmute.entity.VegetableEntity;
 import hcmute.model.VegetableModel;
 import hcmute.model.OrderProduct;
 import hcmute.model.OrderProduct.OrderItem;
@@ -47,13 +47,13 @@ public class CartController {
 	ICartDetailService cartDetailService;
 
 	@Autowired
-	IVegetableService milkTeaService;
+	IVegetableService vegetableService;
 
 	@Autowired
 	IBranchService branchService;
 
 	@Autowired
-	IBranchVegetableService branchMilkTeaService;
+	IBranchVegetableService branchVegetableService;
 	
 	@Autowired
 	CookieServiceImpl cookieServiceImpl;
@@ -73,25 +73,25 @@ public class CartController {
 	private List<VegetableModel> getList() {
 		int idUser = Integer.parseInt(cookieServiceImpl.getValue("USER_ID"));
 		int idCart = getCartId(idUser);
-		List<CartDetailId> milkTeas = cartDetailService.findMilkTeaByCartId(idCart);
-		List<VegetableModel> listmilkteas = new ArrayList<VegetableModel>();
-		for (CartDetailId result : milkTeas) {
-			Optional<MilkTeaEntity> milktea = milkTeaService.findByIdMilkTea(result.getIdMilkTea());
-			if (milktea.isPresent()) {
-				MilkTeaEntity entity = milktea.get();
+		List<CartDetailId> vegetables = cartDetailService.findVegetableByCartId(idCart);
+		List<VegetableModel> listvegetables = new ArrayList<VegetableModel>();
+		for (CartDetailId result : vegetables) {
+			Optional<VegetableEntity> vegetable = vegetableService.findByIdVegetable(result.getIdVegetable());
+			if (vegetable.isPresent()) {
+				VegetableEntity entity = vegetable.get();
 				String size = result.getSize();
-				VegetableModel milkTeaModel = new VegetableModel();
-				BeanUtils.copyProperties(entity, milkTeaModel);
-				milkTeaModel.setSize(size);
-				listmilkteas.add(milkTeaModel);
+				VegetableModel vegetableModel = new VegetableModel();
+				BeanUtils.copyProperties(entity, vegetableModel);
+				vegetableModel.setSize(size);
+				listvegetables.add(vegetableModel);
 			}
 		}
-		return listmilkteas;
+		return listvegetables;
 	}
 
 	@GetMapping("")
 	public String list(ModelMap model, @RequestParam(value = "status", required = false) String status) {
-		model.addAttribute("listmilkteas", this.getList());
+		model.addAttribute("listvegetables", this.getList());
 		model.addAttribute("status", status);
 		if (status != null) {
 			if ("success".equals(status)) {
@@ -108,7 +108,7 @@ public class CartController {
 		if (noChoose.equals("true")) {
 			model.addAttribute("message", "Quý khách chưa chọn sản phẩm để đặt hàng!");
 			model.addAttribute("status", "fail");
-			model.addAttribute("listmilkteas", this.getList());
+			model.addAttribute("listvegetables", this.getList());
 			return "user/cart";
 		}
 		String dataEncoded = data;
@@ -123,12 +123,12 @@ public class CartController {
 			for (BranchEntity branch : listBranches) {
 				Boolean isChecked = true;
 				for (OrderItem item : orderProduct.getList()) {
-					int idMilkTea = Integer.parseInt(item.getIdMilkTea());
-					Optional<MilkTeaEntity> entity = milkTeaService.findByIdMilkTea(idMilkTea);
+					int idVegetable = Integer.parseInt(item.getIdVegetable());
+					Optional<VegetableEntity> entity = vegetableService.findByIdVegetable(idVegetable);
 					if (entity.isPresent()) {
 						int idBranch = branch.getIdBranch();
-						Optional<Integer> remainQuantityOptional = branchMilkTeaService
-								.findRemainQuantityByBranchIdAndMilkTeaId(idBranch, idMilkTea, item.getSize());
+						Optional<Integer> remainQuantityOptional = branchVegetableService
+								.findRemainQuantityByBranchIdAndVegetableId(idBranch, idVegetable, item.getSize());
 						if (remainQuantityOptional.isPresent()) {
 							if (remainQuantityOptional.get() < Integer.parseInt(item.getQuantity())) {
 								isChecked = false;
@@ -154,7 +154,7 @@ public class CartController {
 				model.addAttribute("message",
 						"Xin lỗi quý khách! Hiện tại toàn bộ các chi nhánh không có đủ số lượng đáp ứng cho toàn bộ sản phẩm bạn đã đặt hàng!");
 				model.addAttribute("status", "fail");
-				model.addAttribute("listmilkteas", this.getList());
+				model.addAttribute("listvegetables", this.getList());
 				return "user/cart";
 			}
 		} catch (Exception e) {
@@ -164,18 +164,18 @@ public class CartController {
 	}
 
 	@GetMapping("/delete")
-	public String delete(ModelMap model, @RequestParam("idMilkTea") int idMilkTea, @RequestParam("size") String size) {
+	public String delete(ModelMap model, @RequestParam("idVegetable") int idVegetable, @RequestParam("size") String size) {
 		int idUser = Integer.parseInt(cookieServiceImpl.getValue("USER_ID"));
 		int idCart = getCartId(idUser);
-		CartDetailId cartDetailId = new CartDetailId(idCart, idMilkTea, size);
+		CartDetailId cartDetailId = new CartDetailId(idCart, idVegetable, size);
 		Optional<CartDetailEntity> cartDetail = cartDetailService.findById(cartDetailId);
 		if (cartDetail.isPresent()) {
 			CartDetailEntity cartDetailEntity = cartDetail.get();
 			cartDetailService.delete(cartDetailEntity);
-			model.addAttribute("listmilkteas", this.getList());
+			model.addAttribute("listvegetables", this.getList());
 			return "redirect:/cart?status=success";
 		} else {
-			model.addAttribute("listmilkteas", this.getList());
+			model.addAttribute("listvegetables", this.getList());
 			return "redirect:/cart?status=fail";
 		}
 	}

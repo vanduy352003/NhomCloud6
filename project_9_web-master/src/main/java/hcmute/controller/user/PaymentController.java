@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import hcmute.embeddedId.OrderDetailId;
 import hcmute.entity.BranchEntity;
-import hcmute.entity.MilkTeaEntity;
+import hcmute.entity.VegetableEntity;
 import hcmute.entity.OrderDetailEntity;
 import hcmute.entity.OrderEntity;
 import hcmute.entity.PayMethodEntity;
@@ -64,7 +64,7 @@ public class PaymentController {
 	IPayMethodService payMethodService;
 
 	@Autowired
-	IVegetableService milkTeaService;
+	IVegetableService vegetableService;
 	
 	@Autowired
 	IBranchService branchService;
@@ -110,20 +110,20 @@ public class PaymentController {
 
 		try {
 			OrderProduct orderProduct = objectMapper.readValue(data, OrderProduct.class);
-			List<VegetableModel> listMilkTea = new ArrayList<VegetableModel>();
+			List<VegetableModel> listVegetable = new ArrayList<VegetableModel>();
 			for (OrderItem item : orderProduct.getList()) {
-				Optional<MilkTeaEntity> entity = milkTeaService.findByIdMilkTea(Integer.parseInt(item.getIdMilkTea()));
+				Optional<VegetableEntity> entity = vegetableService.findByIdVegetable(Integer.parseInt(item.getIdVegetable()));
 				if (entity.isPresent()) {
-					VegetableModel milkTeaModel = new VegetableModel();
-					BeanUtils.copyProperties(entity.get(), milkTeaModel);
-					milkTeaModel.setSize(item.getSize());
-					milkTeaModel.setOrderQuantity(Integer.parseInt(item.getQuantity()));
-					milkTeaModel.setCost(item.getPrice());
-					listMilkTea.add(milkTeaModel);
+					VegetableModel vegetableModel = new VegetableModel();
+					BeanUtils.copyProperties(entity.get(), vegetableModel);
+					vegetableModel.setSize(item.getSize());
+					vegetableModel.setOrderQuantity(Integer.parseInt(item.getQuantity()));
+					vegetableModel.setCost(item.getPrice());
+					listVegetable.add(vegetableModel);
 				}
 			}
 			model.addAttribute("orderProduct", orderProduct);
-			model.addAttribute("listMilkTea", listMilkTea);
+			model.addAttribute("listVegetable", listVegetable);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -177,10 +177,10 @@ public class PaymentController {
 				orderDetailEntity.setQuantity(item.getQuantity());
 //				orderDetailEntity.setCurrPrice(item.getPrice());
 
-				Optional<MilkTeaEntity> milkTeaEntity = milkTeaService.findByIdMilkTea(item.getIdMilkTea());
+				Optional<VegetableEntity> vegetableEntity = vegetableService.findByIdVegetable(item.getIdVegetable());
 
-				if (milkTeaEntity.isPresent()) {
-					orderDetailEntity.setMilkTeaByOrderDetail(milkTeaEntity.get());
+				if (vegetableEntity.isPresent()) {
+					orderDetailEntity.setVegetableByOrderDetail(vegetableEntity.get());
 				}
 
 				orderDetailEntity.setOrderByOrderDetail(orderEntity);
@@ -188,7 +188,7 @@ public class PaymentController {
 				OrderDetailId idOrderDetail = new OrderDetailId();
 				idOrderDetail.setSize(item.getSize());
 				idOrderDetail.setIdOrder(orderDetailEntity.getOrderByOrderDetail().getIdOrder());
-				idOrderDetail.setIdMilkTea(orderDetailEntity.getMilkTeaByOrderDetail().getIdMilkTea());
+				idOrderDetail.setIdVegetable(orderDetailEntity.getVegetableByOrderDetail().getIdVegetable());
 				orderDetailEntity.setIdOrderDetail(idOrderDetail);
 
 				orderDetailService.save(orderDetailEntity);

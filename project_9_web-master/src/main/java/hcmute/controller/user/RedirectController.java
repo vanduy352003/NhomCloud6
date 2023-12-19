@@ -9,8 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import hcmute.entity.MilkTeaCategoryEntity;
-import hcmute.entity.MilkTeaTypeEntity;
+import hcmute.entity.VegetableCategoryEntity;
+import hcmute.entity.VegetableTypeEntity;
 import hcmute.service.IVegetableCategoryService;
 import hcmute.service.IVegetableService;
 import hcmute.service.IVegetableTypeService;
@@ -20,19 +20,19 @@ import hcmute.service.IVegetableTypeService;
 public class RedirectController {
 
 	@Autowired
-	IVegetableCategoryService milkTeaCategoryService;
+	IVegetableCategoryService vegetableCategoryService;
 	@Autowired
-	IVegetableTypeService milkTeaTypeService;
+	IVegetableTypeService vegetableTypeService;
 	@Autowired
-	IVegetableService milkTeaService;
+	IVegetableService vegetableService;
 
 	@GetMapping("")
 	public String LoadHeader(Model model) {
-		List<MilkTeaCategoryEntity> categories = milkTeaCategoryService.findAll();
-		List<List<MilkTeaTypeEntity>> types = new ArrayList<List<MilkTeaTypeEntity>>();
+		List<VegetableCategoryEntity> categories = vegetableCategoryService.findAll();
+		List<List<VegetableTypeEntity>> types = new ArrayList<List<VegetableTypeEntity>>();
 		model.addAttribute("categories", categories);
-		for (MilkTeaCategoryEntity category : categories) {
-			List<MilkTeaTypeEntity> categoriesWithTypes = milkTeaTypeService
+		for (VegetableCategoryEntity category : categories) {
+			List<VegetableTypeEntity> categoriesWithTypes = vegetableTypeService
 					.findAllByCategoryId(category.getIdCategory());
 			types.add(categoriesWithTypes);
 		}
