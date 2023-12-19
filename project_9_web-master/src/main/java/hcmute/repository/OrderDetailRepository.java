@@ -14,15 +14,15 @@ import hcmute.entity.OrderDetailEntity;
 
 @Repository
 public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, OrderDetailId>{
-	@Query(value = "SELECT * FROM order_detail WHERE id_milk_tea = :VegetableID", nativeQuery = true)
+	@Query(value = "SELECT * FROM order_detail WHERE id_vegetable = :VegetableID", nativeQuery = true)
     List<OrderDetailEntity> findOrderDetailsByIDVegetable(@Param("VegetableID") int VegetableID);
 	
-	// Statistics quantity of each milk tea type in this month
+	// Statistics quantity of each vegetable type in this month
 	@Query(value = "SELECT mt.name, SUM(od.quantity)"
 			+ "FROM order_detail od "
-			+ "JOIN milk_tea mt ON od.id_milk_tea = mt.id_milk_tea "
+			+ "JOIN vegetable mt ON od.id_vegetable = mt.id_vegetable "
 			+ "JOIN user_order o ON od.id_order = o.id_order "
 			+ "WHERE MONTH(o.order_day) = MONTH(GETDATE()) AND YEAR(o.order_day) = YEAR(GETDATE()) "
-			+ "GROUP BY mt.id_milk_tea, mt.name", nativeQuery = true)
+			+ "GROUP BY mt.id_vegetable, mt.name", nativeQuery = true)
 	List<Object[]> getQuantityByVegetableType();
 }

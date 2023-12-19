@@ -20,8 +20,8 @@ public interface VegetableRepository extends JpaRepository<VegetableEntity, Inte
 
 	Optional<VegetableEntity> findByIdVegetable(int id);
 
-	@Query(value = "SELECT * FROM milk_tea WHERE id_milk_tea IN "
-			+ "(SELECT TOP 5 id_milk_tea FROM order_detail GROUP BY id_milk_tea ORDER BY SUM(quantity) DESC)", nativeQuery = true)
+	@Query(value = "SELECT * FROM vegetable WHERE id_vegetable IN "
+			+ "(SELECT TOP 5 id_vegetable FROM order_detail GROUP BY id_vegetable ORDER BY SUM(quantity) DESC)", nativeQuery = true)
 	List<VegetableEntity> findFiveProductOutstanding();
 
 	List<VegetableEntity> findAll();
@@ -35,35 +35,35 @@ public interface VegetableRepository extends JpaRepository<VegetableEntity, Inte
 
 	long count();
 
-	@Query(value = "SELECT * " + "FROM milk_tea " + "WHERE "
+	@Query(value = "SELECT * " + "FROM vegetable " + "WHERE "
 			+ "(LOWER(name) LIKE CONCAT('%', :name, '%') COLLATE Vietnamese_CI_AI) OR "
 			+ "(LOWER(name) LIKE CONCAT('%', :name, '%') COLLATE SQL_Latin1_General_CP1253_CI_AI)", nativeQuery = true)
 	List<VegetableEntity> findByNameContaining(@Param("name") String name);
 
-	@Query(value = "SELECT * " + "FROM milk_tea " + "WHERE "
+	@Query(value = "SELECT * " + "FROM vegetable " + "WHERE "
 			+ "(LOWER(name) LIKE CONCAT('%', :name, '%') COLLATE Vietnamese_CI_AI) OR "
 			+ "(LOWER(name) LIKE CONCAT('%', :name, '%') COLLATE SQL_Latin1_General_CP1253_CI_AI) "
 			+ "ORDER BY cost ASC", nativeQuery = true)
 	List<VegetableEntity> findByNameContainingAndSortAscendingByCost(@Param("name") String name);
 
-	@Query(value = "SELECT * " + "FROM milk_tea " + "WHERE "
+	@Query(value = "SELECT * " + "FROM vegetable " + "WHERE "
 			+ "(LOWER(name) LIKE CONCAT('%', :name, '%') COLLATE Vietnamese_CI_AI) OR "
 			+ "(LOWER(name) LIKE CONCAT('%', :name, '%') COLLATE SQL_Latin1_General_CP1253_CI_AI) "
 			+ "ORDER BY cost DESC", nativeQuery = true)
 	List<VegetableEntity> findByNameContainingAndSortDescendingByCost(@Param("name") String name);
 
-	@Query(value = "SELECT * " + "FROM milk_tea " + "WHERE "
+	@Query(value = "SELECT * " + "FROM vegetable " + "WHERE "
 			+ "(LOWER(name) LIKE CONCAT('%', :name, '%') COLLATE Vietnamese_CI_AI) OR "
 			+ "(LOWER(name) LIKE CONCAT('%', :name, '%') COLLATE SQL_Latin1_General_CP1253_CI_AI)", nativeQuery = true)
 	Page<VegetableEntity> findBynameContaining(@Param("name") String name, Pageable pageable);
 	
-	@Query(value = "SELECT * " + "FROM milk_tea " + "WHERE "
+	@Query(value = "SELECT * " + "FROM vegetable " + "WHERE "
 			+ "(LOWER(name) LIKE CONCAT('%', :name, '%') COLLATE Vietnamese_CI_AI) OR "
 			+ "(LOWER(name) LIKE CONCAT('%', :name, '%') COLLATE SQL_Latin1_General_CP1253_CI_AI) "
 			+ "ORDER BY cost ASC", nativeQuery = true)
 	Page<VegetableEntity> findByNameContainingAndSortAscendingByCost(@Param("name") String name, Pageable pageable);
 
-	@Query(value = "SELECT * " + "FROM milk_tea " + "WHERE "
+	@Query(value = "SELECT * " + "FROM vegetable " + "WHERE "
 			+ "(LOWER(name) LIKE CONCAT('%', :name, '%') COLLATE Vietnamese_CI_AI) OR "
 			+ "(LOWER(name) LIKE CONCAT('%', :name, '%') COLLATE SQL_Latin1_General_CP1253_CI_AI) "
 			+ "ORDER BY cost DESC", nativeQuery = true)
@@ -72,7 +72,7 @@ public interface VegetableRepository extends JpaRepository<VegetableEntity, Inte
 	@Query("SELECT COUNT(mt) FROM VegetableEntity mt WHERE mt.VegetableTypeByVegetable.idType = :typeId")
 	int countByTypeId(int typeId);
 
-	@Query(value = "SELECT COUNT(*) FROM milk_tea WHERE LOWER(cast(name as varchar(1000)) collate SQL_Latin1_General_Cp1251_CS_AS) LIKE LOWER(CONCAT('%', cast(:name as varchar(1000)) collate SQL_Latin1_General_Cp1251_CS_AS, '%'))", nativeQuery = true)
+	@Query(value = "SELECT COUNT(*) FROM vegetable WHERE LOWER(cast(name as varchar(1000)) collate SQL_Latin1_General_Cp1251_CS_AS) LIKE LOWER(CONCAT('%', cast(:name as varchar(1000)) collate SQL_Latin1_General_Cp1251_CS_AS, '%'))", nativeQuery = true)
 	int countByNameContaining(@Param("name") String name);
 
 	@Query("SELECT mt FROM VegetableEntity mt WHERE mt.VegetableTypeByVegetable.idType = :idType")
