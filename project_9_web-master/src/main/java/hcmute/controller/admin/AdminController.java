@@ -40,14 +40,14 @@ public class AdminController {
 	@Autowired
 	private IOrderService orderService;
 	@Autowired
-	private IVegetableService milkTeaService;
+	private IVegetableService vegetableService;
 	@Autowired IOrderDetailService orderDetailService;
 	
 	@GetMapping("index")
 	public String Index(ModelMap model) throws JsonProcessingException, UnsupportedEncodingException {
 		int countUser = userRoleService.countUser();
 		int countOrder = orderService.count();
-		int countProduct = (int) milkTeaService.count();
+		int countProduct = (int) vegetableService.count();
 		
 		model.addAttribute("countUser", countUser );
 		model.addAttribute("countOrder", countOrder);
@@ -74,14 +74,14 @@ public class AdminController {
         List<Object[]> revenueDataByMonth = orderService.getRevenueByMonth();
         String revenueDataByMonthJson = objectMapper.writeValueAsString(revenueDataByMonth);
         
-        List<Object[]> quantityDataOfMilkTeaType = orderDetailService.getQuantityByMilkTeaType();
-        String quantityDataOfMilkTeaTypeJson = objectMapper.writeValueAsString(quantityDataOfMilkTeaType);
+        List<Object[]> quantityDataOfVegetableType = orderDetailService.getQuantityByVegetableType();
+        String quantityDataOfVegetableTypeJson = objectMapper.writeValueAsString(quantityDataOfVegetableType);
         // Encode the Vietnamese characters in the JSON string
-        quantityDataOfMilkTeaTypeJson = URLEncoder.encode(quantityDataOfMilkTeaTypeJson, "UTF-8");
+        quantityDataOfVegetableTypeJson = URLEncoder.encode(quantityDataOfVegetableTypeJson, "UTF-8");
         
         model.addAttribute("revenueDataByDayJson", revenueDataByDayJson);
         model.addAttribute("revenueDataByMonthJson", revenueDataByMonthJson);
-        model.addAttribute("quantityDataOfMilkTeaTypeJson", quantityDataOfMilkTeaTypeJson);
+        model.addAttribute("quantityDataOfVegetableTypeJson", quantityDataOfVegetableTypeJson);
 		
 		return "admin/index";
 	}

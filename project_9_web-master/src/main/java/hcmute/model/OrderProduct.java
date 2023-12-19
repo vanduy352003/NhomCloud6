@@ -41,7 +41,7 @@ public class OrderProduct {
 		this.totalPrice = totalPrice;
 	}
 	public static class OrderItem {
-		private String idMilkTea;
+		private String idVegetable;
 		private String quantity;
 		private int price;
 		private String size;
@@ -50,19 +50,19 @@ public class OrderProduct {
 		public OrderItem() {
 		}
 
-		public OrderItem(String idMilkTea, String quantity, int price, String size) {
-			this.idMilkTea = idMilkTea;
+		public OrderItem(String idVegetable, String quantity, int price, String size) {
+			this.idVegetable = idVegetable;
 			this.quantity = quantity;
 			this.price = price;
 			this.size = size;
 		}
 
-		public String getIdMilkTea() {
-			return idMilkTea;
+		public String getIdVegetable() {
+			return idVegetable;
 		}
 
-		public void setIdMilkTea(String idMilkTea) {
-			this.idMilkTea = idMilkTea;
+		public void setIdVegetable(String idVegetable) {
+			this.idVegetable = idVegetable;
 		}
 
 		public String getQuantity() {

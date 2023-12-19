@@ -29,7 +29,7 @@ public class OrderData {
 	    @NoArgsConstructor
 	    @AllArgsConstructor
 	    public static class OrderItem {
-	        private int idMilkTea;
+	        private int idVegetable;
 	        private String size;
 	        private int quantity;
 	        private int price;

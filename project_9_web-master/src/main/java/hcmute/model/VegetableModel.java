@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VegetableModel {
-	private int idMilkTea;
+	private int idVegetable;
 	private String name;
 	private int cost;
 	private String description;
@@ -21,12 +21,12 @@ public class VegetableModel {
 	private MultipartFile imageFile;
 
 	// use for product detail
-	private String milkTeaType;
+	private String vegetableType;
 	private String size;
-	private int milkTeaTypeId;
+	private int vegetableTypeId;
 	private int branchId;
 
-	private VegetableTypeModel milkTeaTypeByMilkTea;
+	private VegetableTypeModel vegetableTypeByVegetable;
 	private Set<CartDetailEntity> cartDetails;;
 	private Set<BranchVegetable> branchVegetables;
 	private Boolean isEdit = false;

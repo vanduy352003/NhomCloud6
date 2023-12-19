@@ -7,7 +7,7 @@ import lombok.*;
 public class VegetableTypeModel{
 	private int idType;
 	private String name;
-	private VegetableCategoryModel vegetableCategoryByMilkTeaType;
+	private VegetableCategoryModel vegetableCategoryByVegetableType;
 	private VegetableModel vegetables;
 	private int idCategory;
 	private Boolean isEdit = false;

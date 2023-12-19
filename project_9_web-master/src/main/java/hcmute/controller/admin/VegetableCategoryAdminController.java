@@ -8,8 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import hcmute.entity.MilkTeaCategoryEntity;
-
+import hcmute.entity.VegetableCategoryEntity;
 import hcmute.model.VegetableCategoryModel;
 
 import hcmute.service.IVegetableCategoryService;
@@ -21,16 +20,16 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("admin/category")
-public class MilkTeaCategoryAdminController {
+public class VegetableCategoryAdminController {
 
 	@Autowired
-	private IVegetableCategoryService milkTeaCategoryService;
+	private IVegetableCategoryService vegetableCategoryService;
 
 	@GetMapping("")
 	public String indexViewCategory(ModelMap model) {
-		List<MilkTeaCategoryEntity> categories = milkTeaCategoryService.findAll();
+		List<VegetableCategoryEntity> categories = vegetableCategoryService.findAll();
 		model.addAttribute("categories", categories); // Updated attribute name to "branches"
-		return "admin/view/view-milk-tea-category";
+		return "admin/view/view-vegetable-category";
 	}
 
 	@GetMapping("add")
@@ -38,17 +37,17 @@ public class MilkTeaCategoryAdminController {
 		VegetableCategoryModel category = new VegetableCategoryModel();
 		category.setIsEdit(false);
 		model.addAttribute("category", category);
-		return "admin/customize/customize-milk-tea-category";
+		return "admin/customize/customize-vegetable-category";
 	}
 
 	@PostMapping("saveOrUpdate")
 	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("category") VegetableCategoryModel category,
 			BindingResult result) {
 		if (result.hasErrors()) {
-			return new ModelAndView("admin/customize/customize-milk-tea-category");
+			return new ModelAndView("admin/customize/customize-vegetable-category");
 		}
 		if (category != null) {
-			MilkTeaCategoryEntity entity = new MilkTeaCategoryEntity();
+			VegetableCategoryEntity entity = new VegetableCategoryEntity();
 			entity.setIdCategory(category.getIdCategory());
 			System.out.println(category.getIdCategory());
 			System.out.println(category.getName());
@@ -56,7 +55,7 @@ public class MilkTeaCategoryAdminController {
 				entity.setName(category.getName());
 			}
 
-			milkTeaCategoryService.save(entity);
+			vegetableCategoryService.save(entity);
 			String message = category.getIsEdit() ? "Danh mục đã được cập nhật thành công"
 					: "Danh mục đã được thêm thành công";
 			model.addAttribute("message", message);
@@ -69,14 +68,14 @@ public class MilkTeaCategoryAdminController {
 
 	@GetMapping("edit/{idCategory}")
 	public ModelAndView edit(ModelMap model, @PathVariable("idCategory") int idCategory) {
-		Optional<MilkTeaCategoryEntity> opt = milkTeaCategoryService.findById(idCategory);
+		Optional<VegetableCategoryEntity> opt = vegetableCategoryService.findById(idCategory);
 		VegetableCategoryModel category = new VegetableCategoryModel();
 		if (opt.isPresent()) {
-			MilkTeaCategoryEntity entity = opt.get();
+			VegetableCategoryEntity entity = opt.get();
 			BeanUtils.copyProperties(entity, category);
 			category.setIsEdit(true);
 			model.addAttribute("category", category);
-			return new ModelAndView("admin/customize/customize-milk-tea-category", model);
+			return new ModelAndView("admin/customize/customize-vegetable-category", model);
 		}
 
 		model.addAttribute("message", "Danh mục không tồn tại không tồn tại");
