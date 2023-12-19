@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import hcmute.entity.BranchEntity;
-import hcmute.entity.BranchMilkTea;
-import hcmute.entity.MilkTeaEntity;
 import hcmute.entity.UserEntity;
 import hcmute.service.IUserService;
 import hcmute.service.impl.CookieServiceImpl;
